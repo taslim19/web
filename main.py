@@ -1,3 +1,4 @@
+import uvicorn
 from akenoai import AkenoXToJs as js
 from akenoai.runner import run_fast
 
@@ -22,4 +23,6 @@ async def example_json():
             title = js.dict_to_obj(await response.json()).title
     return {"message": title}
 
-run_fast(build=fast_app)
+# Ensure we don't call asyncio.run() inside an existing event loop
+if __name__ == "__main__":
+    uvicorn.run("main:fast_app", host="0.0.0.0", port=8000, reload=True)
