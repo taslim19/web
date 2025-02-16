@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+akenoai[fast]
+aiohttp  # Required for async HTTP calls
