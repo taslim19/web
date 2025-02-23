@@ -1,13 +1,15 @@
 import uvicorn
 import os
 import asyncio
+from fastapi import FastAPI
 from akenoai import AkenoXToJs as js
-from akenoai.runner import run_fast
 
-fast_app = js.get_app()
+# Create FastAPI app manually since get_app() does not exist
+fast_app = FastAPI()
+
 js.add_cors_middleware()
 
-api_key = os.environ.get("akeno_yzpYJoxvTIAK5t5pHDA0QcJNi7gQtcI4")
+api_key = os.environ.get("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")
 
 
 # Tiktok Downloader
@@ -64,7 +66,7 @@ async def terabox_download(url: str):
 async def cohere(query: str):
     return await js.randydev(
         "ai/cohere/command-plus",
-        api_key="akeno_Azm11CohMaLg4LTWsUrE1RJjM68L5",
+        api_key=api_key,
         custom_dev_fast=True,
         query=query,
         chatHistory=[],
