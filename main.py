@@ -2,14 +2,22 @@ import uvicorn
 import os
 import asyncio
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware  # Import CORS Middleware
 from akenoai import AkenoXToJs as js
 
-# Create FastAPI app manually since get_app() does not exist
+# Create FastAPI app manually
 fast_app = FastAPI()
 
-js.add_cors_middleware()
+# Add CORS Middleware manually
+fast_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
-api_key = os.environ.get("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")
+api_key = os.environ.get("AKENOX_KEY")
 
 
 # Tiktok Downloader
