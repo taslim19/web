@@ -17,40 +17,38 @@ fast_app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-api_key = os.environ.get("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")
+# Fetch API Key properly
+api_key = os.environ.get("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")  # Use an environment variable reference
 
 
 # Tiktok Downloader
 async def TiktokDownloader(url: str):
-    response = await js.randydev(
+    return await js().randydev(  # Instantiate js before using
         "dl/tiktok",
         api_key=api_key,
         custom_dev_fast=True,
         url=url
     )
-    return response
 
 
 # Facebook Downloader
 async def FbDownloader(url: str):
-    response = await js.randydev(
+    return await js().randydev(
         "dl/fb",
         api_key=api_key,
         custom_dev_fast=True,
         url=url
     )
-    return response
 
 
 # Terabox Downloader (100 max requests per hour)
 async def TeraboxDownloader(url: str):
-    response = await js.randydev(
+    return await js().randydev(
         "dl/terabox",
         api_key=api_key,
         custom_dev_fast=True,
         url=url
     )
-    return response
 
 
 # API Endpoints for Downloaders
@@ -72,7 +70,7 @@ async def terabox_download(url: str):
 # Cohere AI API
 @fast_app.get("/api/cohere")
 async def cohere(query: str):
-    return await js.randydev(
+    return await js().randydev(  # Instantiate js before using
         "ai/cohere/command-plus",
         api_key=api_key,
         custom_dev_fast=True,
@@ -85,9 +83,9 @@ async def cohere(query: str):
 # Test API Route
 @fast_app.get("/test")
 async def example_json():
-    async with js.fasthttp().ClientSession() as session:
+    async with js().fasthttp().ClientSession() as session:  # Ensure this method exists in AkenoXToJs
         async with session.get("https://jsonplaceholder.typicode.com/todos/1") as response:
-            title = js.dict_to_obj(await response.json()).title
+            title = (await response.json()).get("title", "No Title Found")
     return {"message": title}
 
 
