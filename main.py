@@ -17,7 +17,7 @@ fast_app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-api_key = os.environ.get("AKENOX_KEY")
+api_key = os.environ.get("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")
 
 
 # Tiktok Downloader
