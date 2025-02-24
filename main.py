@@ -32,7 +32,6 @@ async def TiktokDownloader(url: str):
     return await js.downloader.create(
         "dl/tiktok",
         api_key=api_key,
-        custom_dev_fast=True,
         url=url
     )
 
@@ -42,7 +41,6 @@ async def FbDownloader(url: str):
     return await js.downloader.create(
         "dl/fb",
         api_key=api_key,
-        custom_dev_fast=True,
         url=url
     )
 
@@ -52,7 +50,6 @@ async def TeraboxDownloader(url: str):
     return await js.downloader.create(
         "dl/terabox",
         api_key=api_key,
-        custom_dev_fast=True,
         url=url
     )
 
@@ -79,7 +76,6 @@ async def cohere(query: str):
     return await js.downloader.create(
         "ai/cohere/command-plus",
         api_key=api_key,
-        custom_dev_fast=True,
         query=query,
         chatHistory=[],
         system_prompt="You are a helpful AI assistant designed to provide clear and concise responses."
