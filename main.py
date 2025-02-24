@@ -2,28 +2,34 @@ import uvicorn
 import os
 import asyncio
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware  # Import CORS Middleware
-from akenoai import AkenoXToJs as js
+from fastapi.middleware.cors import CORSMiddleware  
+from akenoai import AkenoXToJs  # Import the class correctly
 
-# Create FastAPI app manually
+# Create FastAPI app
 fast_app = FastAPI()
 
-# Add CORS Middleware manually
+# Add CORS Middleware
 fast_app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
+    allow_origins=["*"],  
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],  
+    allow_headers=["*"],  
 )
 
-# Fetch API Key properly
-api_key = os.environ.get("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")  # Use an environment variable reference
+# Initialize AkenoXToJs instance with connect()
+js = AkenoXToJs().connect()
+
+# Ensure the downloader module is created
+js.downloader.create()
+
+# Fetch API Key correctly
+api_key = os.getenv("AKENO_API_KEY")  # Ensure you use the correct environment variable name
 
 
 # Tiktok Downloader
 async def TiktokDownloader(url: str):
-    return await js().randydev(  # Instantiate js before using
+    return await js.downloader.create(
         "dl/tiktok",
         api_key=api_key,
         custom_dev_fast=True,
@@ -33,7 +39,7 @@ async def TiktokDownloader(url: str):
 
 # Facebook Downloader
 async def FbDownloader(url: str):
-    return await js().randydev(
+    return await js.downloader.create(
         "dl/fb",
         api_key=api_key,
         custom_dev_fast=True,
@@ -41,9 +47,9 @@ async def FbDownloader(url: str):
     )
 
 
-# Terabox Downloader (100 max requests per hour)
+# Terabox Downloader
 async def TeraboxDownloader(url: str):
-    return await js().randydev(
+    return await js.downloader.create(
         "dl/terabox",
         api_key=api_key,
         custom_dev_fast=True,
@@ -51,7 +57,7 @@ async def TeraboxDownloader(url: str):
     )
 
 
-# API Endpoints for Downloaders
+# API Endpoints
 @fast_app.get("/api/download/tiktok")
 async def tiktok_download(url: str):
     return await TiktokDownloader(url)
@@ -70,7 +76,7 @@ async def terabox_download(url: str):
 # Cohere AI API
 @fast_app.get("/api/cohere")
 async def cohere(query: str):
-    return await js().randydev(  # Instantiate js before using
+    return await js.downloader.create(
         "ai/cohere/command-plus",
         api_key=api_key,
         custom_dev_fast=True,
@@ -83,9 +89,10 @@ async def cohere(query: str):
 # Test API Route
 @fast_app.get("/test")
 async def example_json():
-    async with js().fasthttp().ClientSession() as session:  # Ensure this method exists in AkenoXToJs
+    async with js.fasthttp().ClientSession() as session:
         async with session.get("https://jsonplaceholder.typicode.com/todos/1") as response:
-            title = (await response.json()).get("title", "No Title Found")
+            data = await response.json()
+            title = data.get("title", "No Title Found")
     return {"message": title}
 
 
