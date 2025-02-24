@@ -39,7 +39,7 @@ async def TiktokDownloader(url: str):
 # Facebook Downloader
 async def FbDownloader(url: str):
     return await js.downloader.create(
-        "dl/fb-dl",
+        "dl/snapsave",
         api_key=api_key,
         url=url
     )
@@ -73,7 +73,7 @@ async def terabox_download(url: str):
 # Cohere AI API
 @fast_app.get("/api/cohere")
 async def cohere(query: str):
-    return await js.downloader.create(
+     return await js().randydev(  # Instantiate js before using
         "ai/cohere/command-plus",
         api_key=api_key,
         query=query,
