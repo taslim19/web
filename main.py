@@ -30,7 +30,7 @@ api_key = os.getenv("AKENO_API_KEY")  # Ensure you use the correct environment v
 # Tiktok Downloader
 async def TiktokDownloader(url: str):
     return await js.downloader.create(
-        "dl/tiktok",
+        "dl/tiktok-dl",
         api_key=api_key,
         url=url
     )
@@ -39,7 +39,7 @@ async def TiktokDownloader(url: str):
 # Facebook Downloader
 async def FbDownloader(url: str):
     return await js.downloader.create(
-        "dl/fb",
+        "dl/fb-dl",
         api_key=api_key,
         url=url
     )
@@ -48,7 +48,7 @@ async def FbDownloader(url: str):
 # Terabox Downloader
 async def TeraboxDownloader(url: str):
     return await js.downloader.create(
-        "dl/terabox",
+        "dl/terabox-dl",
         api_key=api_key,
         url=url
     )
