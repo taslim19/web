@@ -20,9 +20,6 @@ fast_app.add_middleware(
 # Initialize AkenoXToJs instance with connect()
 js = AkenoXToJs().connect()
 
-# Ensure the downloader module is created
-js.downloader.create()
-
 # Fetch API Key correctly
 api_key = os.getenv("akeno_aO3VrXPCLGlho0ul6gkfO7C5bC8zTFUm")  # Ensure you use the correct environment variable name
 
